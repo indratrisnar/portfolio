@@ -1,0 +1,4 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+com/drexapp/portfolio/BuildConfig.java
+ com.drexapp.portfolio.BuildConfig

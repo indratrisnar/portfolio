@@ -16,6 +16,10 @@ class CDashboard extends GetxController {
     Future.delayed(const Duration(milliseconds: 1500), () => setLoading(false));
   }
 
+  void refreshData() {
+    setListApp();
+  }
+
   @override
   void onInit() {
     setListApp();

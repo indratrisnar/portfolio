@@ -6,7 +6,9 @@ import 'presentation/page/dashboard.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
+    // name: 'Portfolio',
     options: const FirebaseOptions(
         apiKey: "AIzaSyDIRbnmiPvcoVHTIN89nCop9UcBELPgC-4",
         authDomain: "portfolio-eae02.firebaseapp.com",
@@ -24,9 +26,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Dashboard(),
+      home: const Dashboard(),
+      theme: ThemeData.dark().copyWith(
+          primaryColor: const Color(0xff2FA4FF),
+          colorScheme: const ColorScheme.dark(
+            primary: Color(0xff2FA4FF),
+            secondary: Color(0xffFFD365),
+          )),
     );
   }
 }
