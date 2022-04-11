@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1078184886809",
+    "project_id": "portfolio-eae02",
+    "storage_bucket": "portfolio-eae02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078184886809:android:b60d3b32d8327e38132088",
+        "android_client_info": {
+          "package_name": "com.drexapp.portfolio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1078184886809-12mlfi143ejqc7j3iq60ndiajjr1pvl1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.drexapp.portfolio",
+            "certificate_hash": "08ac13d4ae36d4ec354ac5c02b3d86cef61187a2"
+          }
+        },
+        {
+          "client_id": "1078184886809-5fjoaagr7fab7ncbvhrb3t2dk8idjs8g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUi7uubY7nXY5cPvcyCJFexT1oaIs1wEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1078184886809-5fjoaagr7fab7ncbvhrb3t2dk8idjs8g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
