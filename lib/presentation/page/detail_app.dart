@@ -67,14 +67,40 @@ class DetailApp extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: mApp.description!.split("//").map((e) {
-              return Text(e, style: Theme.of(context).textTheme.bodyMedium);
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Text(e, style: Theme.of(context).textTheme.bodyMedium),
+              );
             }).toList(),
           ),
-          DView.spaceHeight(30),
+          DView.spaceHeight(30 - 4),
           DView.textTitle('Feature'),
           DView.spaceHeight(12),
           Column(
             children: mApp.feature!.map((e) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.check_circle, size: 16),
+                    DView.spaceWidth(8),
+                    Expanded(
+                      child: Text(
+                        e,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
+          DView.spaceHeight(30 - 4),
+          DView.textTitle('Tools'),
+          DView.spaceHeight(12),
+          Column(
+            children: mApp.tools!.map((e) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: Row(
