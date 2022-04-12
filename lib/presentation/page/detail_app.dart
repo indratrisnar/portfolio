@@ -122,10 +122,10 @@ class DetailApp extends StatelessWidget {
           DView.spaceHeight(30),
           DView.textTitle('Demo App'),
           DView.spaceHeight(12),
-          ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: 800,
-            ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width < 400
+                ? double.infinity
+                : MediaQuery.of(context).size.width * 0.7,
             child: YoutubePlayerIFrame(
               controller: _controller,
               aspectRatio: 16 / 9,
