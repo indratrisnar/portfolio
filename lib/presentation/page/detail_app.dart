@@ -19,7 +19,9 @@ class DetailApp extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(),
+        leading: BackButton(onPressed: () {
+          Get.offAllNamed('/');
+        }),
         titleSpacing: 0,
         title: Obx(() {
           return Text(cDetailApp.mApp.name ?? "");

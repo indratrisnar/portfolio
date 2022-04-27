@@ -41,7 +41,7 @@ class Dashboard extends StatelessWidget {
             itemBuilder: (context, index) {
               MApp mApp = cDashboard.listApp[index];
               return GestureDetector(
-                onTap: () => Get.toNamed('/detail-app?id=${mApp.id}'),
+                onTap: () => Get.offNamed('/detail-app?id=${mApp.id}'),
                 child: Column(
                   children: [
                     Expanded(
