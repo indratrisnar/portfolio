@@ -2,158 +2,177 @@ import 'package:d_info/d_info.dart';
 import 'package:d_view/d_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/presentation/controller/c_detail_app.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
-import '../../data/model/m_app.dart';
+
+import '../../data/model/m_download.dart';
 
 class DetailApp extends StatelessWidget {
-  const DetailApp({Key? key, required this.mApp}) : super(key: key);
-  final MApp mApp;
+  const DetailApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    YoutubePlayerController _controller = YoutubePlayerController(
-      initialVideoId: mApp.youtube ?? '1qCrl2-lzTk&t=1s',
-      params: const YoutubePlayerParams(
-        showControls: true,
-        showFullscreenButton: true,
-        autoPlay: false,
-      ),
-    );
+    final cDetailApp = Get.put(CDetailApp());
+    cDetailApp.setMApp(Get.parameters['id']!.trim());
+
     return Scaffold(
-      appBar: DView.appBarLeft(mApp.name ?? ""),
+      appBar: AppBar(
+        leading: const BackButton(),
+        titleSpacing: 0,
+        title: Obx(() {
+          return Text(cDetailApp.mApp.name ?? "");
+        }),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
           DView.textTitle('Download'),
           DView.spaceHeight(12),
-          Wrap(
-            spacing: 16,
-            runSpacing: 8,
-            children: mApp.download!.map((e) {
-              return Material(
-                elevation: 8,
-                borderRadius: BorderRadius.circular(8),
-                child: InkWell(
+          Obx(() {
+            List<MDownload> listDownload = cDetailApp.mApp.download ?? [];
+            return Wrap(
+              spacing: 16,
+              runSpacing: 8,
+              children: listDownload.map((e) {
+                return Material(
+                  elevation: 8,
                   borderRadius: BorderRadius.circular(8),
-                  onTap: () async {
-                    if (!await launch(e.url!)) {
-                      DInfo.dialogError('Could not launch ${e.url}');
-                      DInfo.closeDialog();
-                    }
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 16,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey[300]!, width: 0.5),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      'v${e.version}',
-                      style: Theme.of(context).textTheme.bodyLarge,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(8),
+                    onTap: () async {
+                      if (!await launch(e.url!)) {
+                        DInfo.dialogError('Could not launch ${e.url}');
+                        DInfo.closeDialog();
+                      }
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        border:
+                            Border.all(color: Colors.grey[300]!, width: 0.5),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        'v${e.version}',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
                     ),
                   ),
-                ),
-              );
-            }).toList(),
-          ),
+                );
+              }).toList(),
+            );
+          }),
           DView.spaceHeight(30),
           DView.textTitle('Description'),
           DView.spaceHeight(12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: mApp.description!.split("//").map((e) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: Text(e, style: Theme.of(context).textTheme.bodyMedium),
-              );
-            }).toList(),
-          ),
+          Obx(() {
+            String description = cDetailApp.mApp.description ?? '';
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: description.split("//").map((e) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: Text(e, style: Theme.of(context).textTheme.bodyMedium),
+                );
+              }).toList(),
+            );
+          }),
           DView.spaceHeight(30 - 4),
           DView.textTitle('Feature'),
           DView.spaceHeight(12),
-          Column(
-            children: mApp.feature!.map((e) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(Icons.check_circle, size: 16),
-                    DView.spaceWidth(8),
-                    Expanded(
-                      child: Text(
-                        e,
-                        style: Theme.of(context).textTheme.bodyMedium,
+          Obx(() {
+            return Column(
+              children: (cDetailApp.mApp.feature ?? []).map((e) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.check_circle, size: 16),
+                      DView.spaceWidth(8),
+                      Expanded(
+                        child: Text(
+                          e,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
-          ),
+                    ],
+                  ),
+                );
+              }).toList(),
+            );
+          }),
           DView.spaceHeight(30 - 4),
           DView.textTitle('Tools'),
           DView.spaceHeight(12),
-          Column(
-            children: mApp.tools!.map((e) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(Icons.check_circle, size: 16),
-                    DView.spaceWidth(8),
-                    Expanded(
-                      child: Text(
-                        e,
-                        style: Theme.of(context).textTheme.bodyMedium,
+          Obx(() {
+            return Column(
+              children: (cDetailApp.mApp.tools ?? []).map((e) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.check_circle, size: 16),
+                      DView.spaceWidth(8),
+                      Expanded(
+                        child: Text(
+                          e,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
-          ),
+                    ],
+                  ),
+                );
+              }).toList(),
+            );
+          }),
           DView.spaceHeight(30),
           DView.textTitle('Demo App'),
           DView.spaceHeight(12),
-          SizedBox(
-            width: MediaQuery.of(context).size.width < 400
-                ? double.infinity
-                : MediaQuery.of(context).size.width * 0.7,
-            child: YoutubePlayerIFrame(
-              controller: _controller,
-              aspectRatio: 16 / 9,
-            ),
-          ),
+          Obx(() {
+            return Align(
+              alignment: Alignment.centerLeft,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width < 400
+                    ? double.infinity
+                    : 500,
+                child: YoutubePlayerIFrame(
+                  controller: cDetailApp.controllerYT,
+                  aspectRatio: 16 / 9,
+                ),
+              ),
+            );
+          }),
           DView.spaceHeight(30),
           DView.textTitle('Screenshot'),
           DView.spaceHeight(),
-          GridView.builder(
-            padding: const EdgeInsets.all(0),
-            itemCount: mApp.screenshot!.length,
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 240,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-              mainAxisExtent: 400,
-            ),
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () => viewScreenshot(mApp.screenshot!, index),
-                child: Image.network(
-                  mApp.screenshot![index],
-                ),
-              );
-            },
-          ),
+          Obx(() {
+            List<String> screenshot = cDetailApp.mApp.screenshot ?? [];
+            return GridView.builder(
+              padding: const EdgeInsets.all(0),
+              itemCount: screenshot.length,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 240,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+                mainAxisExtent: 400,
+              ),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () => viewScreenshot(screenshot, index),
+                  child: Image.network(screenshot[index]),
+                );
+              },
+            );
+          }),
         ],
       ),
     );

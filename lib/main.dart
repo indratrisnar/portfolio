@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/presentation/page/detail_app.dart';
+import 'package:portfolio/presentation/page/not_found_page.dart';
 
 import 'presentation/page/dashboard.dart';
 
@@ -28,7 +30,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const Dashboard(),
+      initialRoute: '/',
+      unknownRoute:
+          GetPage(name: '/notfound', page: () => const NotFoundPage()),
+      getPages: [
+        GetPage(name: '/', page: () => const Dashboard()),
+        GetPage(name: '/detail-app', page: () => const DetailApp()),
+      ],
       theme: ThemeData.dark().copyWith(
           primaryColor: const Color(0xff2FA4FF),
           colorScheme: const ColorScheme.dark(

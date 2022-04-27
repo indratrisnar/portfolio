@@ -10,4 +10,11 @@ class FireApp {
         .map((e) => MApp.fromJson(e.data() as Map<String, dynamic>))
         .toList();
   }
+
+  static Future<MApp?> whereId(String id) async {
+    DocumentSnapshot doc =
+        await FirebaseFirestore.instance.collection('App').doc(id).get();
+    if (doc.exists) return MApp.fromJson(doc.data() as Map<String, dynamic>);
+    return null;
+  }
 }

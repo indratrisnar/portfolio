@@ -1,8 +1,6 @@
 import 'package:d_view/d_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:portfolio/presentation/page/detail_app.dart';
-
 import '../../data/model/m_app.dart';
 import '../controller/c_dashboard.dart';
 
@@ -43,7 +41,7 @@ class Dashboard extends StatelessWidget {
             itemBuilder: (context, index) {
               MApp mApp = cDashboard.listApp[index];
               return GestureDetector(
-                onTap: () => Get.to(() => DetailApp(mApp: mApp)),
+                onTap: () => Get.toNamed('/detail-app?id=${mApp.id}'),
                 child: Column(
                   children: [
                     Expanded(
