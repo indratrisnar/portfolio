@@ -76,7 +76,7 @@ class DetailApp extends StatelessWidget {
             String description = cDetailApp.mApp.description ?? '';
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: description.split("//").map((e) {
+              children: description.split("[enter]").map((e) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 4),
                   child: SelectableText(e,
