@@ -79,7 +79,8 @@ class DetailApp extends StatelessWidget {
               children: description.split("//").map((e) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 4),
-                  child: Text(e, style: Theme.of(context).textTheme.bodyMedium),
+                  child: SelectableText(e,
+                      style: Theme.of(context).textTheme.bodyMedium),
                 );
               }).toList(),
             );
@@ -98,7 +99,7 @@ class DetailApp extends StatelessWidget {
                       const Icon(Icons.check_circle, size: 16),
                       DView.spaceWidth(8),
                       Expanded(
-                        child: Text(
+                        child: SelectableText(
                           e,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
@@ -123,7 +124,7 @@ class DetailApp extends StatelessWidget {
                       const Icon(Icons.check_circle, size: 16),
                       DView.spaceWidth(8),
                       Expanded(
-                        child: Text(
+                        child: SelectableText(
                           e,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
