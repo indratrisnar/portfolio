@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:portfolio/data/model/m_package.dart';
+import 'package:portfolio/data/source/fire_package.dart';
 
 import '../../data/model/m_app.dart';
 import '../../data/source/fire_app.dart';
@@ -10,19 +12,22 @@ class CDashboard extends GetxController {
 
   final RxList<MApp> _listApp = <MApp>[].obs;
   List<MApp> get listApp => _listApp;
-  void setListApp() async {
+  final RxList<MPackage> _listPackage = <MPackage>[].obs;
+  List<MPackage> get listPackage => _listPackage;
+  void setList() async {
     setLoading(true);
-    _listApp.value = await FireApp.gets();
-    Future.delayed(const Duration(milliseconds: 1500), () => setLoading(false));
+    _listApp.value = await FireApp.getLimit();
+    _listPackage.value = await FirePackage.getLimit();
+    setLoading(false);
   }
 
   void refreshData() {
-    setListApp();
+    setList();
   }
 
   @override
   void onInit() {
-    setListApp();
+    setList();
     super.onInit();
   }
 }

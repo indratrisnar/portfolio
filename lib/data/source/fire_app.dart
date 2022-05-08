@@ -4,11 +4,29 @@ import '../model/m_app.dart';
 
 class FireApp {
   static Future<List<MApp>> gets() async {
-    QuerySnapshot snapshot =
-        await FirebaseFirestore.instance.collection('App').get();
-    return snapshot.docs
-        .map((e) => MApp.fromJson(e.data() as Map<String, dynamic>))
-        .toList();
+    CollectionReference appReference =
+        FirebaseFirestore.instance.collection('App');
+    QuerySnapshot snapshot = await appReference.get();
+    return snapshot.docs.map((e) {
+      return MApp(
+        id: (e.data() as Map<String, dynamic>)['id'],
+        name: (e.data() as Map<String, dynamic>)['name'],
+        cover: (e.data() as Map<String, dynamic>)['cover'],
+      );
+    }).toList();
+  }
+
+  static Future<List<MApp>> getLimit() async {
+    CollectionReference appReference =
+        FirebaseFirestore.instance.collection('App');
+    QuerySnapshot snapshot = await appReference.orderBy('name').limit(5).get();
+    return snapshot.docs.map((e) {
+      return MApp(
+        id: (e.data() as Map<String, dynamic>)['id'],
+        name: (e.data() as Map<String, dynamic>)['name'],
+        cover: (e.data() as Map<String, dynamic>)['cover'],
+      );
+    }).toList();
   }
 
   static Future<MApp?> whereId(String id) async {
