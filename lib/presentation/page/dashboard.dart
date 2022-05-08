@@ -1,6 +1,7 @@
 import 'package:d_view/d_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../data/model/m_app.dart';
 import '../../data/model/m_package.dart';
 import '../controller/c_dashboard.dart';
@@ -62,32 +63,35 @@ class Dashboard extends StatelessWidget {
                       index == cDashboard.listApp.length - 1 ? 16 : 8,
                       0,
                     ),
-                    child: Material(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                mApp.cover!,
-                                height: 240,
-                                fit: BoxFit.fitHeight,
+                    child: GestureDetector(
+                      onTap: () => Get.offNamed('/detail-app?id=${mApp.id}'),
+                      child: Material(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
+                                  mApp.cover!,
+                                  height: 240,
+                                  fit: BoxFit.fitHeight,
+                                ),
                               ),
-                            ),
-                            DView.spaceHeight(),
-                            SizedBox(
-                              height: 44,
-                              child: Text(
-                                mApp.name ?? '',
-                                style: Theme.of(context).textTheme.titleLarge,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
+                              DView.spaceHeight(),
+                              SizedBox(
+                                height: 44,
+                                child: Text(
+                                  mApp.name ?? '',
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -132,7 +136,11 @@ class Dashboard extends StatelessWidget {
                           child: Material(
                             borderRadius: BorderRadius.circular(8),
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () async {
+                                if (await canLaunch(mPackage.url ?? '')) {
+                                  await launch(mPackage.url ?? '');
+                                }
+                              },
                               borderRadius: BorderRadius.circular(8),
                               child: Container(
                                 decoration: BoxDecoration(
