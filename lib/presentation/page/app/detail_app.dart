@@ -18,9 +18,7 @@ class DetailApp extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(onPressed: () {
-          Get.offAllNamed('/');
-        }),
+        leading: const BackButton(),
         titleSpacing: 0,
         title: Obx(() {
           return Text(cDetailApp.mApp.name ?? "");
@@ -43,7 +41,7 @@ class DetailApp extends StatelessWidget {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(8),
                     onTap: () async {
-                      if (!await launch(e.url!)) {
+                      if (!await canLaunchUrl(Uri.parse(e.url!))) {
                         DInfo.dialogError('Could not launch ${e.url}');
                         DInfo.closeDialog();
                       }

@@ -19,7 +19,7 @@ class FireApp {
   static Future<List<MApp>> getLimit() async {
     CollectionReference appReference =
         FirebaseFirestore.instance.collection('App');
-    QuerySnapshot snapshot = await appReference.orderBy('name').limit(5).get();
+    QuerySnapshot snapshot = await appReference.orderBy('name').limit(3).get();
     return snapshot.docs.map((e) {
       return MApp(
         id: (e.data() as Map<String, dynamic>)['id'],

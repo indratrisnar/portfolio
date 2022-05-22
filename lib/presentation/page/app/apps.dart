@@ -42,12 +42,13 @@ class Apps extends StatelessWidget {
             itemBuilder: (context, index) {
               MApp mApp = cApps.list[index];
               return GestureDetector(
-                onTap: () => Get.offNamed('/detail-app?id=${mApp.id}'),
+                onTap: () => Get.toNamed('/detail-app?id=${mApp.id}'),
                 child: Column(
                   children: [
-                    Expanded(
+                    AspectRatio(
+                      aspectRatio: 16 / 9,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(10),
                         child: Image.network(
                           mApp.cover!,
                           width: double.maxFinite,

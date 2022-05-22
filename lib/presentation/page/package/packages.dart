@@ -38,8 +38,8 @@ class Packages extends StatelessWidget {
               MPackage mPackage = cPackage.list[index];
               return ListTile(
                 onTap: () async {
-                  if (await canLaunch(mPackage.url ?? '')) {
-                    await launch(mPackage.url ?? '');
+                  if (await canLaunchUrl(Uri.parse(mPackage.url ?? ''))) {
+                    await launchUrl(Uri.parse(mPackage.url ?? ''));
                   }
                 },
                 leading: CircleAvatar(child: Text('${index + 1}')),

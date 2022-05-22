@@ -2,9 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/presentation/page/app/detail_app.dart';
+import 'package:portfolio/presentation/page/course/detail_course.dart';
 import 'package:portfolio/presentation/page/not_found_page.dart';
 
 import 'presentation/page/app/apps.dart';
+import 'presentation/page/course/courses.dart';
 import 'presentation/page/dashboard.dart';
 import 'presentation/page/package/packages.dart';
 
@@ -40,6 +42,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/apps', page: () => const Apps()),
         GetPage(name: '/detail-app', page: () => const DetailApp()),
         GetPage(name: '/packages', page: () => const Packages()),
+        GetPage(name: '/courses', page: () => const Courses()),
+        GetPage(name: '/detail-course', page: () => const DetailCourse()),
       ],
       theme: ThemeData.dark().copyWith(
           primaryColor: const Color(0xff2FA4FF),
